@@ -9,10 +9,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8da52d66c7071e2e3fa2a1e5c6d088fec47b593032b254f5e980de8ea54454d6"
 
 [[package]]
-name = "autocfg"
-version = "1.1.0"
+name = "bls-12-381"
+version = "0.0.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d468802bab17cbc0cc575e9b053f41e72aa36bfa6b7f55e3529ffa43161b97fa"
+checksum = "4e3a742c4da006d8a93a776781a64a35d4c288f60b2a531b9511b1eddd45b5e7"
+dependencies = [
+ "parity-scale-codec",
+ "rand_core",
+ "serde",
+ "zkstd",
+]
 
 [[package]]
 name = "byte-slice-cast"
@@ -27,23 +33,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
-name = "derive-hex"
-version = "0.1.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4b6618553c32cd1c1f4fbdb9418cc035f3168422f24406ebb08576f6db5ed6ec"
+name = "ec-pairing"
+version = "0.0.10"
 dependencies = [
- "proc-macro2",
- "quote",
- "syn 1.0.109",
-]
-
-[[package]]
-name = "dusk-bytes"
-version = "0.1.6"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f4aae12696d965c95ce5b79bc5612575e8aeac958c9e037b74ffa9e73e1cd8c7"
-dependencies = [
- "derive-hex",
+ "bls-12-381",
+ "jub-jub",
+ "parity-scale-codec",
+ "rand_core",
+ "zkstd",
 ]
 
 [[package]]
@@ -58,12 +55,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "hashbrown"
-version = "0.12.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8a9ee70c43aaf417c914396645a0fa852624801b24ebb7ae78fe8272889ac888"
-
-[[package]]
 name = "impl-trait-for-tuples"
 version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -75,13 +66,16 @@ dependencies = [
 ]
 
 [[package]]
-name = "indexmap"
-version = "1.9.3"
+name = "jub-jub"
+version = "0.0.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bd070e393353796e801d209ad339e89596eb4c8d430d18ede6a1cced8fafbd99"
+checksum = "6daf91f1e3a4585ac60da6ee3d5cecc6ab35efadfd67c14b128dd91b9b419b75"
 dependencies = [
- "autocfg",
- "hashbrown",
+ "bls-12-381",
+ "parity-scale-codec",
+ "rand_core",
+ "serde",
+ "zkstd",
 ]
 
 [[package]]
@@ -89,12 +83,6 @@ name = "libc"
 version = "0.2.142"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6a987beff54b60ffa6d51982e1aa1146bc42f19bd26be28b0586f252fccf5317"
-
-[[package]]
-name = "memchr"
-version = "2.5.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2dffe52ecf27772e601905b7522cb4ef790d2cc203488bbd0e2fe85fcb74566d"
 
 [[package]]
 name = "once_cell"
@@ -134,28 +122,29 @@ checksum = "9f746c4065a8fa3fe23974dd82f15431cc8d40779821001404d10d2e79ca7d79"
 
 [[package]]
 name = "proc-macro-crate"
-version = "1.3.1"
+version = "1.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7f4c021e1093a56626774e81216a4ce732a735e5bad4868a03f3ed65ca0c3919"
+checksum = "eda0fc3b0fb7c975631757e14d9049da17374063edb6ebbcbc54d880d4fe94e9"
 dependencies = [
  "once_cell",
- "toml_edit",
+ "thiserror",
+ "toml",
 ]
 
 [[package]]
 name = "proc-macro2"
-version = "1.0.56"
+version = "1.0.66"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2b63bdb0cd06f1f4dedf69b254734f9b45af66e4a031e42a7480257d9898b435"
+checksum = "18fb31db3f9bddb2ea821cde30a9f70117e3f119938b5ee630b7403aa6e2ead9"
 dependencies = [
  "unicode-ident",
 ]
 
 [[package]]
 name = "quote"
-version = "1.0.26"
+version = "1.0.32"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4424af4bf778aae2051a77b60283332f386554255d722233d09fbfc7e30da2fc"
+checksum = "50f3b39ccfb720540debaa0164757101c08ecb8d326b15358ce76a62c7e85965"
 dependencies = [
  "proc-macro2",
 ]
@@ -186,7 +175,7 @@ checksum = "291a097c63d8497e00160b166a967a4a79c64f3facdd01cbd7502231688d77df"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.15",
+ "syn 2.0.27",
 ]
 
 [[package]]
@@ -194,12 +183,6 @@ name = "sp-std"
 version = "3.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "35391ea974fa5ee869cb094d5b437688fbf3d8127d64d1b9fed5822a1ed39b12"
-
-[[package]]
-name = "subtle"
-version = "2.5.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "81cdd64d312baedb58e21336b31bc043b77e01cc99033ce76ef539f78e965ebc"
 
 [[package]]
 name = "syn"
@@ -214,9 +197,9 @@ dependencies = [
 
 [[package]]
 name = "syn"
-version = "2.0.15"
+version = "2.0.27"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a34fcf3e8b60f57e6a14301a2e916d323af98b0ea63c599441eec8558660c822"
+checksum = "b60f673f44a8255b9c8c657daf66a596d435f2da81a555b06dc644d080ba45e0"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -224,20 +207,32 @@ dependencies = [
 ]
 
 [[package]]
-name = "toml_datetime"
-version = "0.6.1"
+name = "thiserror"
+version = "1.0.44"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3ab8ed2edee10b50132aed5f331333428b011c99402b5a534154ed15746f9622"
+checksum = "611040a08a0439f8248d1990b111c95baa9c704c805fa1f62104b39655fd7f90"
+dependencies = [
+ "thiserror-impl",
+]
 
 [[package]]
-name = "toml_edit"
-version = "0.19.8"
+name = "thiserror-impl"
+version = "1.0.44"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "239410c8609e8125456927e6707163a3b1fdb40561e4b803bc041f466ccfdc13"
+checksum = "090198534930841fab3a5d1bb637cde49e339654e606195f8d9c76eeb081dc96"
 dependencies = [
- "indexmap",
- "toml_datetime",
- "winnow",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.27",
+]
+
+[[package]]
+name = "toml"
+version = "0.5.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f4f7f0dd8d50a853a531c426359045b1998f04219d88799810762cd4ad314234"
+dependencies = [
+ "serde",
 ]
 
 [[package]]
@@ -253,65 +248,13 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9c8d87e72b64a3b4db28d11ce29237c246188f4f51057d65a7eab63b7987e423"
 
 [[package]]
-name = "winnow"
-version = "0.4.1"
+name = "zkstd"
+version = "0.0.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ae8970b36c66498d8ff1d66685dc86b91b29db0c7739899012f63a63814b4b28"
+checksum = "b979db769dc5d78b4ef00cb85e932a1be04f08459610eafd9055996ee76e7e13"
 dependencies = [
- "memchr",
-]
-
-[[package]]
-name = "zero-bls12-381"
-version = "0.1.11"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dae4d3131c56b9c62a88131ed895edab17b117a13f0636ece6b43bf947e2422d"
-dependencies = [
- "dusk-bytes",
- "parity-scale-codec",
- "rand_core",
- "serde",
- "subtle",
- "zero-crypto",
-]
-
-[[package]]
-name = "zero-crypto"
-version = "0.1.11"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3395a3cd11230b06c0b026e8618f0c441ea4f2b71a5361c5fd41b4262f2159e8"
-dependencies = [
- "dusk-bytes",
  "parity-scale-codec",
  "paste",
  "rand_core",
  "sp-std",
- "subtle",
-]
-
-[[package]]
-name = "zero-jubjub"
-version = "0.1.11"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c11bb320ae2fdd0890d07d02df95b071c787a2a4e225b52dd07440ef12f49c78"
-dependencies = [
- "dusk-bytes",
- "parity-scale-codec",
- "rand_core",
- "serde",
- "sp-std",
- "subtle",
- "zero-bls12-381",
- "zero-crypto",
-]
-
-[[package]]
-name = "zero-pairing"
-version = "0.1.11"
-dependencies = [
- "parity-scale-codec",
- "rand_core",
- "zero-bls12-381",
- "zero-crypto",
- "zero-jubjub",
 ]
