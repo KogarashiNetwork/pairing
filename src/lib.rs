@@ -22,7 +22,9 @@ use jub_jub::{Fp, JubjubAffine, JubjubExtended};
 use zkstd::common::*;
 use zkstd::common::{G2Pairing, Group, Pairing, PairingRange, PrimeField, Ring, Vec};
 
-// tate pairing with miller algorithm
+/// Tate pairing struct holds necessary components for pairing.
+/// `pairing` function takes G1 and G2 group elements and output
+/// GT target group element.
 #[derive(Debug, Clone, Eq, PartialEq, Default, Encode, Decode)]
 pub struct TatePairing;
 
@@ -117,7 +119,7 @@ impl Pairing for TatePairing {
 }
 
 /// Performs a Variable Base Multiscalar Multiplication.
-pub fn msm_variable_base<P: Pairing>(
+pub fn msm_curve_addtion<P: Pairing>(
     points: &[P::G1Affine],
     scalars: &[P::ScalarField],
 ) -> P::G1Projective {
