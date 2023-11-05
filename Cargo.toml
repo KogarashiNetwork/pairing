@@ -5,7 +5,7 @@ authors = [
 ]
 name = "ec-pairing"
 description = 'Tate pairing implementation'
-version = "0.0.13"
+version = "0.0.14"
 edition = "2021"
 license = "Apache-2.0"
 homepage = 'https://github.com/KogarashiNetwork/Kogarashi/'
@@ -19,10 +19,10 @@ all-features = true
 rustdoc-args = ["--cfg", "docsrs", "--html-in-header", "katex-header.html"]
 
 [dependencies]
-zkstd = { version = "0.0.21", default-features = false }
-bls-12-381 = { version = "0.0.22", default-features = false }
-jub-jub = { version = "0.0.19", default-features = false }
+zkstd = { version = "0.0.22", default-features = false }
+bls-12-381 = { version = "0.0.23", default-features = false }
+jub-jub = { version = "0.0.20", default-features = false }
 parity-scale-codec = { version = "2.0.0", default-features = false, features = ["derive"] }
 
 [dev-dependencies]
-rand_core = { version="0.6.4", features = ["getrandom"] }
+rand_core = { version = "0.6.4", features = ["getrandom"] }
